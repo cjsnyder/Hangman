@@ -13,21 +13,30 @@ states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
           'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
           'North Carolina', 'North Dakota', 'Ohio',
           'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-          'South  Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah',
+          'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah',
           'Vermont', 'Virginia', 'Washington', 'West Virginia',
           'Wisconsin', 'Wyoming']
+
 choice = randint(0, 50)
 compWord = states[choice]
 blanks = []
+falseInput = []
 for letters in compWord:
     blanks += "_"
 
 def checkGuess(userInput):
     if userInput.isalpha():
-        if userInput in compWord:
-            blanks[compWord.index(userInput)] = userInput
+        try:
+            if compWord.index(userInput) != -1:
+                blanks[compWord.index(userInput)] = userInput
+        except ValueError:
+            falseInput.append(userInput)
+            failedStr = ' '.join(falseInput)
+            print("You have tried: " + failedStr)
 
 while blanks != compWord:
-    userInput = input("Input you letter: ")
+    userInput = input("Input a letter: ")
     checkGuess(userInput)
     print(blanks)
+
+print('You did it! The word was: ' + compWord)
