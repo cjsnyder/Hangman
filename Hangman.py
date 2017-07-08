@@ -3,7 +3,6 @@ Purpose: Basic hangman game
 Use: Learning and test of knowledge"""
 
 from random import randint
-import re
 
 states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
           'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
@@ -29,7 +28,9 @@ def checkGuess(userInput):
     lowerInput = userInput.lower()
     if userInput.isalpha() and len(userInput) == 1:
         if lowerInput in lowerWord:
-            blanks[lowerWord.index(lowerInput)] = lowerInput
+            for letter in lowerWord:
+                if letter == lowerInput:
+                    blanks[] = lowerInput
         else:
             falseInput.append(lowerInput)
             failedStr = ' '.join(falseInput)
