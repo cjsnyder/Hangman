@@ -3,7 +3,7 @@ Purpose: Basic hangman game
 Use: Learning and test of knowledge"""
 
 from random import randint
-
+import re
 
 states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
           'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
@@ -17,7 +17,7 @@ states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
           'Vermont', 'Virginia', 'Washington', 'West Virginia',
           'Wisconsin', 'Wyoming']
 
-choice = randint(0, 50)
+choice = randint(0, 49)
 compWord = states[choice]
 blanks = []
 falseInput = []
@@ -25,18 +25,22 @@ for letters in compWord:
     blanks += "_"
 
 def checkGuess(userInput):
-    if userInput.isalpha():
-        try:
-            if compWord.index(userInput) != -1:
-                blanks[compWord.index(userInput)] = userInput
-        except ValueError:
-            falseInput.append(userInput)
+    lowerWord = compWord.lower()
+    lowerInput = userInput.lower()
+    if userInput.isalpha() and len(userInput) == 1:
+        if lowerInput in lowerWord:
+            blanks[lowerWord.index(lowerInput)] = lowerInput
+        else:
+            falseInput.append(lowerInput)
             failedStr = ' '.join(falseInput)
             print("You have tried: " + failedStr)
+
 
 while blanks != compWord:
     userInput = input("Input a letter: ")
     checkGuess(userInput)
+    if blanks[0] != "_":
+        blanks[0] = blanks[0].upper()
     print(blanks)
 
 print('You did it! The word was: ' + compWord)
