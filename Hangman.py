@@ -26,18 +26,36 @@ for letters in compWord:
 def checkGuess(userInput):
     lowerWord = compWord.lower()
     lowerInput = userInput.lower()
-    if userInput.isalpha() and len(userInput) == 1:
-        list(lowerWord)
-        for i, letter in enumerate(lowerWord):
-            if letter == lowerInput:
-                blanks[i] = lowerInput
-
+    if userInput == compWord or userInput == lowerWord:
+        i = 0
+        for letters in compWord:
+            blanks[i] = letters
+            i += 1
+        print(blanks)
+    else:
+        if " " in lowerWord:
+            blanks[lowerWord.index(" ")] = " "
+        if userInput.isalpha() and len(userInput) == 1:
+            if lowerInput not in lowerWord:
+                falseInput.append(lowerInput)
+                failedStr = ' '.join(falseInput)
+                print("You have tried: " + failedStr)
+            else:
+                list(lowerWord)
+                for i, letter in enumerate(lowerWord):
+                    if letter == " ":
+                        blanks[i] == " "
+                    elif letter == lowerInput:
+                        blanks[i] = lowerInput
 
 while ''.join(blanks) != compWord:
+    print(blanks)
     userInput = input("Input a letter: ")
     checkGuess(userInput)
-    if blanks[0] != "_":
-        blanks[0] = blanks[0].upper()
-    print(blanks)
+    blanks[0] = blanks[0].title()
+    if " " in compWord:
+        location = compWord.index(" ")
+        blanks[location + 1] = blanks[location + 1].title()
+
 
 print('You did it! The word was: ' + compWord)
