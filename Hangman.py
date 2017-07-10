@@ -27,17 +27,13 @@ def checkGuess(userInput):
     lowerWord = compWord.lower()
     lowerInput = userInput.lower()
     if userInput.isalpha() and len(userInput) == 1:
-        if lowerInput in lowerWord:
-            for letter in lowerWord:
-                if letter == lowerInput:
-                    blanks[] = lowerInput
-        else:
-            falseInput.append(lowerInput)
-            failedStr = ' '.join(falseInput)
-            print("You have tried: " + failedStr)
+        list(lowerWord)
+        for i, letter in enumerate(lowerWord):
+            if letter == lowerInput:
+                blanks[i] = lowerInput
 
 
-while blanks != compWord:
+while ''.join(blanks) != compWord:
     userInput = input("Input a letter: ")
     checkGuess(userInput)
     if blanks[0] != "_":
